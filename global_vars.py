@@ -14,15 +14,15 @@ _EOS_token = 1
 
 # Pre Process vars
 
-_lang1 = 'heb'
+_lang1 = 'eng'
 
-_lang2 = 'arm'
+_lang2 = 'fra'
 
 _reverse = True
 
 # Training vars
 
-_dictionary_name = "dictionaries/eng-fra-dictionary.pickle"
+_dictionary_name = "dictionaries/fra-eng-dictionary.pickle"
 
 _teacher_forcing_ratio = 0.5
 
@@ -34,10 +34,12 @@ _plot_every=100
 
 _learning_rate=0.01
 
-_epochs = 5
+_epochs = 1
 
 # Inference vars
 
 _model_name = "training_models/fra-eng-model.pickle"
+
+
 
 

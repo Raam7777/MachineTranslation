@@ -35,7 +35,7 @@ def tensors_from_pair(device, input_lang, output_lang, pair):
     return input_tensor, target_tensor
 
 
-def evaluate(dictionary, encoder, decoder, sentence, max_length=_MAX_LENGTH):
+def evaluate(dictionary, encoder, decoder, sentence):
     with torch.no_grad():
         input_tensor = tensor_from_sentence(_device, dictionary.input_lang, sentence)
         input_length = input_tensor.size()[0]
@@ -53,9 +53,9 @@ def evaluate(dictionary, encoder, decoder, sentence, max_length=_MAX_LENGTH):
         decoder_hidden = encoder_hidden
 
         decoded_words = []
-        decoder_attentions = torch.zeros(max_length, max_length)
+        decoder_attentions = torch.zeros(_MAX_LENGTH, _MAX_LENGTH)
 
-        for di in range(max_length):
+        for di in range(_MAX_LENGTH):
             decoder_output, decoder_hidden, decoder_attention = decoder(
                 decoder_input, decoder_hidden, encoder_outputs)
             decoder_attentions[di] = decoder_attention.data
@@ -104,21 +104,15 @@ def showAttention(input_sentence, output_words, attentions):
     plt.show()
 
 
-def evaluateAndShowAttention(dictionary, input_sentence):
+def evaluateAndShowAttention(_dictionary, _training, input_sentence):
     output_words, attentions = evaluate(
-        dictionary.encoder, dictionary.decoder, input_sentence)
+       _dictionary ,_training.encoder, _training.decoder, input_sentence)
     print('input =', input_sentence)
     print('output =', ' '.join(output_words))
     showAttention(input_sentence, output_words, attentions)
 
 
-# evaluateAndShowAttention(_dictionary_name, "elle a cinq ans de moins que moi .")
-#
-# evaluateAndShowAttention(_dictionary_name,"elle est trop petit .")
-#
-# evaluateAndShowAttention(_dictionary_name,"je ne crains pas de mourir .")
-#
-# evaluateAndShowAttention(_dictionary_name,"c est un jeune directeur plein de talent .")
+
 
 
 def main():
@@ -126,6 +120,14 @@ def main():
     _dictionary = load_pickle(_dictionary_name)
     _training = load_pickle(_model_name)
     evaluateRandomly(dictionary=_dictionary, encoder=_training.encoder, decoder=_training.decoder)
+
+    evaluateAndShowAttention(_dictionary, _training, "elle a cinq ans de moins que moi .")
+
+    evaluateAndShowAttention(_dictionary, _training, "elle est trop petit .")
+
+    evaluateAndShowAttention(_dictionary, _training, "je ne crains pas de mourir .")
+
+    evaluateAndShowAttention(_dictionary, _training, "c est un jeune directeur plein de talent .")
 
 if __name__ == '__main__':
     main()
