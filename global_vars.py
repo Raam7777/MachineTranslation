@@ -14,11 +14,11 @@ _EOS_token = 1
 
 # Pre Process vars
 
-_lang1 = 'eng'
+_lang1 = 'heb'
 
-_lang2 = 'fra'
+_lang2 = 'arm'
 
-_reverse = False
+_reverse = True
 
 # Training vars
 
