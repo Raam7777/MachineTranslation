@@ -119,7 +119,7 @@ def train(device, input_tensor, target_tensor, encoder, decoder, encoder_optimiz
 
     return loss.item() / target_length
 
-def eval(device, input_tensor, target_tensor, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion,
+def eval_test(device, input_tensor, target_tensor, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion,
           max_length=_MAX_LENGTH):
     encoder_hidden = encoder.initHidden()
 
@@ -191,7 +191,7 @@ def train_iters(device, input_lang, output_lang, pairs, encoder, decoder, n_iter
         input_tensor = training_pair[0]
         target_tensor = training_pair[1]
         if eval:
-            loss = eval(device, input_tensor, target_tensor, encoder,
+            loss = eval_test(device, input_tensor, target_tensor, encoder,
                               decoder, encoder_optimizer, decoder_optimizer, criterion)
         else:
             loss = train(device, input_tensor, target_tensor, encoder,
