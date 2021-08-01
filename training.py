@@ -181,8 +181,8 @@ def train_iters(device, input_lang, output_lang, pairs, encoder, decoder, n_iter
     encoder_optimizer = optim.SGD(encoder.parameters(), lr=learning_rate)
     decoder_optimizer = optim.SGD(decoder.parameters(), lr=learning_rate)
 
-    encoder_scheduler = MultiStepLR(optimizer=encoder_optimizer, milestones=[130000,260000], gamma=0.1)
-    decoder_scheduler = MultiStepLR(optimizer=decoder_optimizer, milestones=[130000,260000], gamma=0.1)
+    encoder_scheduler = MultiStepLR(optimizer=encoder_optimizer, milestones=[110143,220286], gamma=0.1)
+    decoder_scheduler = MultiStepLR(optimizer=decoder_optimizer, milestones=[130000,220286], gamma=0.1)
     training_pairs = [tensors_from_pair(device, input_lang, output_lang, random.choice(pairs))
                       for i in range(n_iters)]
     criterion = nn.NLLLoss()
@@ -227,12 +227,12 @@ class TrainingObject:
         encoder1 = EncoderRNN(_device, dictionary.input_lang.n_words, _hidden_size).to(_device)
         attn_decoder1 = AttnDecoderRNN(_device, _hidden_size, dictionary.output_lang.n_words, _dropout_p).to(_device)
         random.shuffle(pairs)
-        train_pairs, val_pairs = pairs[:-20000],  pairs[-110143:]
+        train_pairs, val_pairs = pairs[:-20000],  pairs[-20000:]
         for i in range(_epochs - 1):
             encoder1, attn_decoder1 = train_iters(device, input_lang, output_lang, train_pairs, encoder1, attn_decoder1,
                                                   n_iters, print_every, plot_every, learning_rate)
 
-            if i%2==0:
+            if i%3==0:
                 print("-------------------------------------------------------------------------")
                 print("evuation on validation set:")
                 # val_pairs
