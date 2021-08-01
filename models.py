@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from global_vars import _MAX_LENGTH
+from global_vars import _dropout_p
 
 
 class EncoderRNN(nn.Module):
@@ -24,7 +25,7 @@ class EncoderRNN(nn.Module):
 
 
 class AttnDecoderRNN(nn.Module):
-    def __init__(self, device, hidden_size, output_size, dropout_p=0.1, max_length=_MAX_LENGTH):
+    def __init__(self, device, hidden_size, output_size, dropout_p=_dropout_p, max_length=_MAX_LENGTH):
         super(AttnDecoderRNN, self).__init__()
         self.hidden_size = hidden_size
         self.output_size = output_size

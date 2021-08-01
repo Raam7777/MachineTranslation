@@ -18,27 +18,29 @@ _lang1 = 'eng'
 
 _lang2 = 'fra'
 
-_reverse = True
+_reverse = False
 
 # Training vars
 
-_dictionary_name = "dictionaries/fra-eng-dictionary.pickle"
+_dictionary_name = "dictionaries/eng-fra-dictionary.pickle"
 
-_teacher_forcing_ratio = 0.5
+_dropout_p=0.1
 
-_n_iters = 50
+_teacher_forcing_ratio = 1
 
-_print_every=5
+_n_iters = 110143
+
+_print_every=50
 
 _plot_every=100
 
 _learning_rate=0.01
 
-_epochs = 1
+_epochs = 10
 
 # Inference vars
 
-_model_name = "training_models/fra-eng-model.pickle"
+_model_name = "training_models/eng-fra-model.pickle"
 
 
 
