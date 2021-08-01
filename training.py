@@ -227,7 +227,7 @@ class TrainingObject:
         encoder1 = EncoderRNN(_device, dictionary.input_lang.n_words, _hidden_size).to(_device)
         attn_decoder1 = AttnDecoderRNN(_device, _hidden_size, dictionary.output_lang.n_words, _dropout_p).to(_device)
         random.shuffle(pairs)
-        train_pairs, val_pairs = pairs[:-20000],  pairs[-20000:]
+        train_pairs, val_pairs = pairs[:-20000],  pairs[-110143:]
         for i in range(_epochs - 1):
             encoder1, attn_decoder1 = train_iters(device, input_lang, output_lang, train_pairs, encoder1, attn_decoder1,
                                                   n_iters, print_every, plot_every, learning_rate)
