@@ -229,10 +229,11 @@ class TrainingObject:
         random.shuffle(pairs)
         train_pairs, val_pairs = pairs[:-20000],  pairs[-20000:]
         for i in range(_epochs - 1):
+            print("-------------------",i+1,"----------",learning_rate,"-----------------")
             encoder1, attn_decoder1 = train_iters(device, input_lang, output_lang, train_pairs, encoder1, attn_decoder1,
                                                   n_iters, print_every, plot_every, learning_rate)
 
-            if i%3==0:
+            if i%2==0:
                 print("-------------------------------------------------------------------------")
                 print("evuation on validation set:")
                 # val_pairs
